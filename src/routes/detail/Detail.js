@@ -1,11 +1,10 @@
-import { useHistory, useParams } from 'react-router-dom';
+import {useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styles from './detail.module.css';
-import { GoArrowLeft } from 'react-icons/go';
+import { FaHeart, FaStar } from 'react-icons/fa';
 
 function Detail() {
   const { id } = useParams();
-  const history = useHistory();
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
 
@@ -24,12 +23,37 @@ function Detail() {
         <h1>loading</h1>
       ) : (
         <>
-          <button onClick={history.goBack} className={styles.content_prev}>
-            <GoArrowLeft />
-          </button>
-
-          <h1>{data.title}</h1>
-          <p>{data.description_intro}</p>
+          <div>
+            <img src={data.medium_cover_image} alt="" />
+          </div>
+          <div className={styles.title_area}>
+            <strong className={styles.title}>{data.title}</strong>
+            <div className={styles.icon_label}>
+              <FaHeart size={15} color="#f00" />
+              <strong>{data.like_count}</strong>
+            </div>
+          </div>
+          <div className={styles.info_area}>
+            <div>
+              <strong>rating</strong>
+              <div className={[styles.icon_label]}>
+                <FaStar size={15} color="#f00" />
+                <strong>{data.rating}</strong>
+              </div>
+            </div>
+            <div>
+              <strong>year</strong>
+              <span>{data.year}</span>
+            </div>
+            <div>
+              <strong>runtime</strong>
+              <span>{data.runtime}분</span>
+            </div>
+            <div>
+              <strong>Desc</strong>
+              <p>{data.description_full}</p>
+            </div>
+          </div>
         </>
       )}
     </div>
